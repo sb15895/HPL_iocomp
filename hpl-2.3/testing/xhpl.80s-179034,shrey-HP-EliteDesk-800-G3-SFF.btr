@@ -1,0 +1,8 @@
+
+xhpl:179034 terminated with signal 11 at PC=7fa378f8bcfb SP=7ffdc3e38a10.  Backtrace:
+/lib/x86_64-linux-gnu/libc.so.6(_IO_fclose+0xb)[0x7fa378f8bcfb]
+./xhpl(+0x4ef2)[0x5643b0924ef2]
+./xhpl(+0x27e5)[0x5643b09227e5]
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7fa378f36d90]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7fa378f36e40]
+./xhpl(+0x2f25)[0x5643b0922f25]
