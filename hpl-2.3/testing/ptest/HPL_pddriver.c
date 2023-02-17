@@ -111,21 +111,33 @@ int main( ARGC, ARGV )
 #ifdef HPL_CALL_VSIPL
 	vsip_init((void*)0);
 #endif
-	//MPI_Comm globalComm; 
-	//globalComm = MPI_COMM_WORLD; 
 	MPI_Comm globalComm; 
 	globalComm = MPI_COMM_WORLD; 
 
 	/*
-	 * iocomp integration starts 
+	 * command line arguments for iocomp initialisations
+	 * with default options of HT flag on and HDF5
 	 */ 
-	struct iocomp_params iocompParams; 
 	int HT_flag = 1; 
 	int IOLIBNUM = 1; 
+	if(ARGC==5)
+	{
+		if(!strcmp(ARGV[1],"--HT"))
+		{
+			HT_flag = atoi(ARGV[2]); 
+		}
+		if(!strcmp(ARGV[3],"--io"))
+		{
+			IOLIBNUM = atoi(ARGV[4]); 
+		}
+	}
+	printf("IOLIBNUM %i \n", IOLIBNUM); 
+
+	/*
+	 * iocomp initialisations
+	 */ 
+	struct iocomp_params iocompParams; 
 	MPI_Comm comm = iocompInit(&iocompParams, globalComm,  HT_flag, IOLIBNUM); // return computeComm as comm 
-	MPI_Comm_rank( comm, &rank );
-	MPI_Comm_size( comm, &size );
-	printf("size and rank %i %i \n",size, rank); 
 	MPI_Request request; 	
 	size_t datasize = 16; 
 	double data[datasize]; 
@@ -135,6 +147,13 @@ int main( ARGC, ARGV )
 	}
 	dataSend(data, &iocompParams, &request,datasize); 
 	stopSend(&iocompParams); 
+	/*
+	 * iocomp initialisation ends 
+	 */ 
+
+	MPI_Comm_rank( comm, &rank );
+	MPI_Comm_size( comm, &size );
+
 	/*
 	 * Read and check validity of test parameters from input file
 	 *
