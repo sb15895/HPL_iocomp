@@ -49,7 +49,6 @@
  */
 #include "hpl.h"
 #include "mpi.h"
-#include "iocomp.h"
 
 #ifdef STDC_HEADERS
 void HPL_pdtest
@@ -202,7 +201,7 @@ void HPL_pdtest
    HPL_pdgesv( GRID, ALGO, &mat );
 	 MPI_Request request; 
 	 size_t localSize = N* (N+1); // size of mat as parameters given to pdmatgen 
-	 dataSend(mat.A, TEST->iocompParams, &request, localSize); 
+	 dataSend(mat.A, &TEST->iocompParams, &request, localSize); 
    HPL_ptimer( 0 );
    time( &current_time_end );
 #ifdef HPL_CALL_VSIPL

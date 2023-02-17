@@ -48,7 +48,6 @@
  * Include files
  */
 #include "hpl.h"
-#include "iocomp.h"
 
 #ifdef STDC_HEADERS
 	int main
@@ -136,7 +135,8 @@ int main( ARGC, ARGV )
 	/*
 	 * iocomp initialisations
 	 */ 
-	//struct iocomp_params iocompParams; 
+	struct iocomp_params iocompParams; 
+	test.iocompParams = iocompParams; 
 	MPI_Comm comm = iocompInit(&test.iocompParams, globalComm,  HT_flag, IOLIBNUM); // return computeComm as comm 
 	MPI_Request request; 	
 	size_t datasize = 16; 
