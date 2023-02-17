@@ -78,7 +78,7 @@ typedef struct HPL_S_test
    int                 kpass;                    /* # of tests passed */
    int                 kskip;                   /* # of tests skipped */
    int                 ktest;                /* total number of tests */
-	 struct	iocomp_params* iocompParams;			 /* iocomp struct passed */ 
+	 struct	iocomp_params iocompParams;			 /* iocomp struct passed */ 
 } HPL_T_test;
 
 /*
