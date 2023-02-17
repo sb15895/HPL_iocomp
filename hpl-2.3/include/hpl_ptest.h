@@ -62,6 +62,7 @@
 
 #include "hpl_ptimer.h"
 #include "hpl_pmatgen.h"
+#include "mpi.h"
 /*
  * ---------------------------------------------------------------------
  * Data Structures
@@ -134,7 +135,8 @@ STDC_ARGS( (
    int *,
    int *,
    int *,
-   int *
+   int *, 
+	 MPI_Comm 
 ) );
 void                             HPL_pdtest
 STDC_ARGS( (

@@ -48,6 +48,7 @@
  * Include files
  */
 #include "hpl.h"
+#include "mpi.h"
 
 #ifdef STDC_HEADERS
 void HPL_pdinfo
@@ -78,11 +79,12 @@ void HPL_pdinfo
    int *                            L1NOTRAN,
    int *                            UNOTRAN,
    int *                            EQUIL,
-   int *                            ALIGN
+   int *                            ALIGN, 
+	 MPI_Comm													comm
 )
 #else
 void HPL_pdinfo
-( TEST, NS, N, NBS, NB, PMAPPIN, NPQS, P, Q, NPFS, PF, NBMS, NBM, NDVS, NDV, NRFS, RF, NTPS, TP, NDHS, DH, FSWAP, TSWAP, L1NOTRAN, UNOTRAN, EQUIL, ALIGN )
+( TEST, NS, N, NBS, NB, PMAPPIN, NPQS, P, Q, NPFS, PF, NBMS, NBM, NDVS, NDV, NRFS, RF, NTPS, TP, NDHS, DH, FSWAP, TSWAP, L1NOTRAN, UNOTRAN, EQUIL, ALIGN, comm)
    HPL_T_test *                     TEST;
    int *                            NS;
    int *                            N;
@@ -110,6 +112,7 @@ void HPL_pdinfo
    int *                            UNOTRAN;
    int *                            EQUIL;
    int *                            ALIGN;
+	 MPI_Comm													comm; 
 #endif
 {
 /* 
