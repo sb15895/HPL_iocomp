@@ -201,13 +201,15 @@ void HPL_pdtest
    HPL_pdgesv( GRID, ALGO, &mat );
 	 MPI_Request request; 
 	 size_t localSize = N* (N+1); // size of mat as parameters given to pdmatgen 
-	 dataSend(mat.A, &TEST->iocompParams, &request, localSize); 
+	 dataSend(mat.A, &TEST->iocompParams, &request, localSize); // iocomp -> send data 
    HPL_ptimer( 0 );
    time( &current_time_end );
 #ifdef HPL_CALL_VSIPL
    (void) vsip_blockrelease_d( mat.block, VSIP_TRUE ); 
    vsip_blockdestroy_d( mat.block );
 #endif
+
+	 dataWait(&TEST->iocompParams, &request); // iocomp -> wait for data to be sent 
 /*
  * Gather max of all CPU and WALL clock timings and print timing results
  */
@@ -437,6 +439,7 @@ void HPL_pdtest
       }
    }
    if( vptr ) free( vptr );
+
 /*
  * End of HPL_pdtest
  */

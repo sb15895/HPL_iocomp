@@ -145,8 +145,8 @@ int main( ARGC, ARGV )
 	{
 		data[i] = i; 
 	}
-	dataSend(data, &iocompParams, &request,datasize); 
-	stopSend(&iocompParams); 
+	// dataSend(data, &iocompParams, &request,datasize); 
+	// stopSend(&iocompParams); 
 	/*
 	 * iocomp initialisation ends 
 	 */ 
@@ -275,6 +275,7 @@ int main( ARGC, ARGV )
 			}
 		}
 		(void) HPL_grid_exit( &grid );
+
 label_end_of_npqs: ;
 	}
 	/*
@@ -328,6 +329,7 @@ label_end_of_npqs: ;
 	vsip_finalize((void*)0);
 #endif
 
+  stopSend(&test.iocompParams); // iocomp -> send ghost message to stop ioServer 
 	MPI_Finalize();
 	exit( 0 );
 
