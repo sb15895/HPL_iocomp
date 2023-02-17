@@ -281,8 +281,8 @@ void HPL_pdinfo
 /* ..
  * .. Executable Statements ..
  */
-   MPI_Comm_rank( MPI_COMM_WORLD, &rank );
-   MPI_Comm_size( MPI_COMM_WORLD, &size );
+   MPI_Comm_rank( comm, &rank );
+   MPI_Comm_size( comm, &size );
 /*
  * Initialize the TEST data structure with default values
  */
@@ -617,7 +617,7 @@ label_error:
  * Check for error on reading input file
  */
    (void) HPL_all_reduce( (void *)(&error), 1, HPL_INT, HPL_max,
-                          MPI_COMM_WORLD );
+                          comm );
    if( error )
    {
       if( rank == 0 )
@@ -632,12 +632,12 @@ label_error:
 /*
  * Compute and broadcast machine epsilon
  */
-   TEST->epsil = HPL_pdlamch( MPI_COMM_WORLD, HPL_MACH_EPS );
+   TEST->epsil = HPL_pdlamch( comm, HPL_MACH_EPS );
 /*
  * Pack information arrays and broadcast
  */
    (void) HPL_broadcast( (void *)(&(TEST->thrsh)), 1, HPL_DOUBLE, 0,
-                         MPI_COMM_WORLD );
+                         comm );
 /*
  * Broadcast array sizes
  */
@@ -651,7 +651,7 @@ label_error:
       iwork[ 9] = *NDHS;    iwork[10] = *TSWAP;    iwork[11] = *L1NOTRAN;
       iwork[12] = *UNOTRAN; iwork[13] = *EQUIL;    iwork[14] = *ALIGN;
    }
-   (void) HPL_broadcast( (void *)iwork, 15, HPL_INT, 0, MPI_COMM_WORLD );
+   (void) HPL_broadcast( (void *)iwork, 15, HPL_INT, 0, comm );
    if( rank != 0 )
    {
       *NS       = iwork[ 0]; *NBS   = iwork[ 1];
@@ -709,7 +709,7 @@ label_error:
       j++;
    }
    (void) HPL_broadcast( (void*)iwork, lwork, HPL_INT, 0,
-                         MPI_COMM_WORLD );
+                         comm );
    if( rank != 0 )
    {
       j = 0;
