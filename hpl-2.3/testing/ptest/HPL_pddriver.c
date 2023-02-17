@@ -136,8 +136,8 @@ int main( ARGC, ARGV )
 	/*
 	 * iocomp initialisations
 	 */ 
-	struct iocomp_params iocompParams; 
-	MPI_Comm comm = iocompInit(&iocompParams, globalComm,  HT_flag, IOLIBNUM); // return computeComm as comm 
+	//struct iocomp_params iocompParams; 
+	MPI_Comm comm = iocompInit(&test.iocompParams, globalComm,  HT_flag, IOLIBNUM); // return computeComm as comm 
 	MPI_Request request; 	
 	size_t datasize = 16; 
 	double data[datasize]; 

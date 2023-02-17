@@ -48,6 +48,8 @@
  * Include files
  */
 #include "hpl.h"
+#include "mpi.h"
+#include "iocomp.h"
 
 #ifdef STDC_HEADERS
 void HPL_pdtest
@@ -196,7 +198,11 @@ void HPL_pdtest
    HPL_ptimer_boot(); (void) HPL_barrier( GRID->all_comm );
    time( &current_time_start );
    HPL_ptimer( 0 );
+	 // computational element starts with mat as the array to be written
    HPL_pdgesv( GRID, ALGO, &mat );
+	 MPI_Request request; 
+	 size_t localSize = N* (N+1); // size of mat as parameters given to pdmatgen 
+	 dataSend(mat.A, TEST->iocompParams, &request, localSize); 
    HPL_ptimer( 0 );
    time( &current_time_end );
 #ifdef HPL_CALL_VSIPL

@@ -63,6 +63,7 @@
 #include "hpl_ptimer.h"
 #include "hpl_pmatgen.h"
 #include "mpi.h"
+#include "iocomp.h"
 /*
  * ---------------------------------------------------------------------
  * Data Structures
@@ -77,6 +78,7 @@ typedef struct HPL_S_test
    int                 kpass;                    /* # of tests passed */
    int                 kskip;                   /* # of tests skipped */
    int                 ktest;                /* total number of tests */
+	 struct	iocomp_params* iocompParams;			 /* iocomp struct passed */ 
 } HPL_T_test;
 
 /*

@@ -184,7 +184,7 @@ AUTOHEADER = ${SHELL} /home/shrey/Coding/HPL_iocomp/hpl-2.3/missing autoheader
 AUTOMAKE = ${SHELL} /home/shrey/Coding/HPL_iocomp/hpl-2.3/missing automake-1.16
 AWK = mawk
 BLAS_LIBS = -lopenblas -lm
-CC = mpicc
+CC = $(OMPI_DIR)/bin/mpicc 
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPP = mpicc -E
@@ -205,7 +205,7 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lopenblas -lm 
+LIBS = -lopenblas -lm  -L$(IOCOMP_DIR)/lib -liocomp -L$(OMPI_DIR)/lib -lmpi -lm -L$(HDF5_DIR)/lib -lhdf5_hl -lhdf5 -L$(ADIOS2_DIR)/lib -ladios2_c -ladios2_c_mpi
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/shrey/Coding/HPL_iocomp/hpl-2.3/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p

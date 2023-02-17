@@ -61,17 +61,13 @@ pgesv/HPL_rollN.o: pgesv/HPL_rollN.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  ../include/hpl_blas.h ../include/hpl_auxil.h ../include/hpl_gesv.h \
- ../include/hpl_pmisc.h /usr/include/x86_64-linux-gnu/mpich/mpi.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/wchar.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /usr/include/x86_64-linux-gnu/mpich/mpi_proto.h \
- /usr/include/x86_64-linux-gnu/mpich/mpio.h \
- /usr/include/x86_64-linux-gnu/mpich/mpi.h ../include/hpl_pauxil.h \
- ../include/hpl_grid.h ../include/hpl_panel.h ../include/hpl_pgesv.h \
- ../include/hpl_comm.h ../include/hpl_pfact.h ../include/hpl_timer.h \
- ../include/hpl_matgen.h ../include/hpl_test.h ../include/hpl_ptimer.h \
- ../include/hpl_pmatgen.h ../include/hpl_ptest.h
+ ../include/hpl_pmisc.h \
+ /home/shrey/.opt/gnu/9.4/openmpi/4.1.4/include/mpi.h \
+ /home/shrey/.opt/gnu/9.4/openmpi/4.1.4/include/mpi_portable_platform.h \
+ ../include/hpl_pauxil.h ../include/hpl_grid.h ../include/hpl_panel.h \
+ ../include/hpl_pgesv.h ../include/hpl_comm.h ../include/hpl_pfact.h \
+ ../include/hpl_timer.h ../include/hpl_matgen.h ../include/hpl_test.h \
+ ../include/hpl_ptimer.h ../include/hpl_pmatgen.h ../include/hpl_ptest.h
 /usr/include/stdc-predef.h:
 ../include/hpl.h:
 ../include/hpl_misc.h:
@@ -146,14 +142,8 @@ pgesv/HPL_rollN.o: pgesv/HPL_rollN.c /usr/include/stdc-predef.h \
 ../include/hpl_auxil.h:
 ../include/hpl_gesv.h:
 ../include/hpl_pmisc.h:
-/usr/include/x86_64-linux-gnu/mpich/mpi.h:
-/usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h:
-/usr/include/stdint.h:
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
-/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
-/usr/include/x86_64-linux-gnu/mpich/mpi_proto.h:
-/usr/include/x86_64-linux-gnu/mpich/mpio.h:
-/usr/include/x86_64-linux-gnu/mpich/mpi.h:
+/home/shrey/.opt/gnu/9.4/openmpi/4.1.4/include/mpi.h:
+/home/shrey/.opt/gnu/9.4/openmpi/4.1.4/include/mpi_portable_platform.h:
 ../include/hpl_pauxil.h:
 ../include/hpl_grid.h:
 ../include/hpl_panel.h:
