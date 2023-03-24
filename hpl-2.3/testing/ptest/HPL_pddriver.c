@@ -115,10 +115,10 @@ int main( ARGC, ARGV )
 
 	/*
 	 * command line arguments for iocomp initialisations
-	 * with default options of HT flag on and HDF5
+	 * with default options of HT flag off and MPIIO
 	 */ 
-	int HT_flag = 1; 
-	int IOLIBNUM = 1; 
+	int HT_flag = 0; 
+	int IOLIBNUM = 0; 
 	if(ARGC==5)
 	{
 		if(!strcmp(ARGV[1],"--HT"))
@@ -194,7 +194,8 @@ int main( ARGC, ARGV )
 			&ntps, topval, &ndhs, ndhval, &fswap, &tswap, &L1notran,
 			&Unotran, &equil, &align,comm );
 
-
+	double timerStart, wallTime; 
+	timerStart = MPI_Wtime(); 
 	/*
 	 * Loop over different process grids - Define process grid. Go to bottom
 	 * of process grid loop if this case does not use my process.
@@ -278,6 +279,9 @@ int main( ARGC, ARGV )
 
 label_end_of_npqs: ;
 	}
+
+	// iocomp->print wall time 
+	wallTime = MPI_Wtime() - timerStart; 
 	/*
 	 * Print ending messages, close output file, exit.
 	 */
@@ -330,6 +334,14 @@ label_end_of_npqs: ;
 #endif
 
   stopSend(&test.iocompParams); // iocomp -> send ghost message to stop ioServer 
+	/*
+	 * get max wall time using MPI reduce, then rank 0 prints them out 
+	 */ 
+	double maxWallTime; 
+	MPI_Reduce(&wallTime,&maxWallTime, 1, MPI_DOUBLE, MPI_MAX, 0, comm); 
+	if(!rank){
+		printf("iocomp->wall time(s) %lf\n", maxWallTime); 
+	} 
 	MPI_Finalize();
 	exit( 0 );
 
