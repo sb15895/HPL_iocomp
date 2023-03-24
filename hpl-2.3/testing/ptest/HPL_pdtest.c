@@ -191,17 +191,24 @@ void HPL_pdtest
                                  (vsip_length)(mat.ld * mat.nq),
                                  VSIP_MEM_NONE );
 #endif
+	double timerStart, waitTime, compTime, sendTime; 
 /*
  * Solve linear system
  */
+	 timerStart = MPI_Wtime(); 
    HPL_ptimer_boot(); (void) HPL_barrier( GRID->all_comm );
    time( &current_time_start );
    HPL_ptimer( 0 );
 	 // computational element starts with mat as the array to be written
    HPL_pdgesv( GRID, ALGO, &mat );
+	 compTime = MPI_Wtime() - timerStart; // compute time calculate 
+	 
 	 MPI_Request request; 
+
 	 size_t localSize = N* (N+1); // size of mat as parameters given to pdmatgen 
+	 timerStart = MPI_Wtime(); 
 	 dataSend(mat.A, &TEST->iocompParams, &request, localSize); // iocomp -> send data 
+	 sendTime = MPI_Wtime() - timerStart; // send time calculate 
    HPL_ptimer( 0 );
    time( &current_time_end );
 #ifdef HPL_CALL_VSIPL
@@ -209,7 +216,6 @@ void HPL_pdtest
    vsip_blockdestroy_d( mat.block );
 #endif
 
-	 dataWait(&TEST->iocompParams, &request); // iocomp -> wait for data to be sent 
 /*
  * Gather max of all CPU and WALL clock timings and print timing results
  */
@@ -439,6 +445,24 @@ void HPL_pdtest
       }
    }
    if( vptr ) free( vptr );
+	 timerStart = MPI_Wtime(); 
+	 dataWait(&TEST->iocompParams, &request); // iocomp -> wait for data to be sent 
+	 waitTime = MPI_Wtime() - timerStart; // iocomp -> wait timer calculate  
+	 /*
+		* Max MPI reduce operation to get max value of compute, wait, send timers 
+		*/ 
+	 double maxCompTime, maxSendTime, maxWaitTime;
+	 maxCompTime = 0.0; 
+	 maxSendTime = 0.0; 
+	 maxWaitTime = 0.0; 
+	 MPI_Reduce(&compTime, &maxCompTime, 1, MPI_DOUBLE, MPI_MAX, 0, GRID->all_comm); 
+	 MPI_Reduce(&sendTime, &maxSendTime, 1, MPI_DOUBLE, MPI_MAX, 0, GRID->all_comm); 
+	 MPI_Reduce(&waitTime, &maxWaitTime, 1, MPI_DOUBLE, MPI_MAX, 0, GRID->all_comm); 
+	 int rank; 
+	 MPI_Comm_rank(GRID->all_comm, &rank); 
+	 if(!rank){
+		 printf("iocomp->timers-maxcompTime=%lf,maxsendTime=%lf,maxwaitTime=%lf \n",maxCompTime, maxSendTime, maxWaitTime);  
+	 } 
 
 /*
  * End of HPL_pdtest
